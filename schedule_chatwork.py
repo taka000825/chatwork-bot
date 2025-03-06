@@ -52,8 +52,7 @@ def send_message():
 
 # 1日ならメッセージを送信
 def check_and_send_message():
-    if datetime.now().day == 1:  # 1日の場合のみ実行
-        send_message()
+    send_message()  # （即実行）
 
 # 毎日13時に実行（1日ならメッセージを送る）
 schedule.every().day.at("13:00").do(check_and_send_message)
