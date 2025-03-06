@@ -9,12 +9,10 @@ ROOM_ID = "377337322"  # 送信先のルームID
 
 # メッセージ生成関数
 def create_message():
-    # 現在の年月を取得
     now = datetime.now()
     previous_month = now.month - 1 if now.month > 1 else 12  # 前月
     current_month = now.month  # 今月
 
-    # メッセージテンプレート
     message = f"""[toall]
 【精算のお願い】
 皆さん、いつもお世話になっております。
@@ -52,8 +50,13 @@ def send_message():
     else:
         print(f"❌ メッセージ送信失敗: {response.status_code}, {response.text}")
 
-# 毎月1日13時に実行
-schedule.every().month.at("13:00").do(send_message)
+# 1日ならメッセージを送信
+def check_and_send_message():
+    if datetime.now().day == 1:  # 1日の場合のみ実行
+        send_message()
+
+# 毎日13時に実行（1日ならメッセージを送る）
+schedule.every().day.at("13:00").do(check_and_send_message)
 
 # スケジュール実行ループ
 while True:
