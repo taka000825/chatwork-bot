@@ -3,7 +3,7 @@ name: Chatwork Auto Message
 on:
   workflow_dispatch:  # 🔹 手動実行を有効化！
   schedule:
-    - cron: "0 4 1 * *"  # 毎月1日13:00（UTC時間なので-9時間）
+    - cron: 0 4 1 * *  # 毎月1日13:00（UTC時間なので-9時間）
 
 jobs:
   run-script:
@@ -25,4 +25,3 @@ jobs:
 
       - name: スクリプトを実行
         run: python schedule_chatwork.py
-
