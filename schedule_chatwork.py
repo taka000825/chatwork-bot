@@ -1,5 +1,3 @@
-import schedule
-import time
 import requests
 from datetime import datetime
 
@@ -52,12 +50,8 @@ def send_message():
 
 # 1日ならメッセージを送信
 def check_and_send_message():
-    send_message()  # （即実行）
+    if datetime.now().day == 1:  # 1日ならメッセージ送信
+        send_message()
 
-# 毎日13時に実行（1日ならメッセージを送る）
-schedule.every().day.at("13:00").do(check_and_send_message)
-
-# スケジュール実行ループ
-while True:
-    schedule.run_pending()
-    time.sleep(60)  # 1分ごとにチェック
+# 🔹 GitHub Actions では無限ループを使わず、1回実行したら終了
+check_and_send_message()
