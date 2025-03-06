@@ -1,32 +1,6 @@
 name: Chatwork Auto Message
 
 on:
-  schedule:
-    - cron: "0 4 1 * *"  # 毎月1日13:00（UTC時間なので-9時間）
-
-jobs:
-  run-script:
-    runs-on: ubuntu-latest
-    steps:
-      - name: リポジトリを取得
-        uses: actions/checkout@v3
-
-      - name: Pythonをセットアップ
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
-
-      - name: 必要なライブラリをインストール
-        run: pip install requests schedule
-
-      - name: 環境変数を設定（Chatwork APIキー）
-        run: echo "API_TOKEN=${{ secrets.CHATWORK_API_KEY }}" >> $GITHUB_ENV
-
-      - name: スクリプトを実行
-        run: python chatwork_scheduler.py
-name: Chatwork Auto Message
-
-on:
   workflow_dispatch:  # 🔹 手動実行を有効化！
   schedule:
     - cron: "0 4 1 * *"  # 毎月1日13:00（UTC時間なので-9時間）
@@ -51,3 +25,4 @@ jobs:
 
       - name: スクリプトを実行
         run: python schedule_chatwork.py
+
